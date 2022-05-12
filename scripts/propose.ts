@@ -17,17 +17,13 @@ import { moveBlocks } from "../utils/utils";
 // bytes[] memory calldatas, - encodeShit
 // string memory description - string
 
-const makeProposal = async (
+export default async function makeProposal(
   functionName: string,
   args: number[],
   description: string
-) => {
-  console.log("asndjhdj");
-
+) {
   const governor = await ethers.getContract("GovernorContract");
   const box = await ethers.getContract("Box");
-
-  console.log("asndjhdjmndwhjkbhjkefbjhkrbvekrhrbvhe");
 
   const encodedFuntionCalldata = box.interface.encodeFunctionData(
     functionName,
@@ -36,7 +32,7 @@ const makeProposal = async (
 
   const proposalTx = await governor.propose(
     [box.address],
-    [0],
+    [0], // amount of ether needed
     [encodedFuntionCalldata],
     description
   );
@@ -59,7 +55,7 @@ const makeProposal = async (
   const proposalState = await governor.state(proposalId);
   // The state of the proposal. 1 is not passed. 0 is passed.
   console.log(`Current Proposal State: ${proposalState}`);
-};
+}
 
 makeProposal(FUNC_NAME, [FUNC_ARGS], DESCRIPTION)
   .then(() => process.exit(0))

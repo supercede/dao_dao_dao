@@ -15,3 +15,7 @@ export const DESCRIPTION = "Update Box's stored value to 100";
 
 export const developmentChains = ["hardhat", "localhost"];
 export const PROPOSAL_FILE = "proposals.json";
+
+export const VOTE_NO = 0;
+export const VOTE_YES = 1;
+export const VOTE_ABSTAIN = 2;
